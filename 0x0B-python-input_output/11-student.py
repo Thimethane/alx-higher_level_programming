@@ -26,6 +26,15 @@ class Student:
         Args:
             attrs (list): (Optional) The attributes to represent.
         """
-        if type(attrs) == list and all(type(ele) == str for ele in attrs):
-            return {k: getattr(self, k) for k in attrs if hasattr(self, k)}
-        return self.__dict__
+        if attrs is None:
+            return self.__dict__
+        json_dict = {}
+        for attr in attrs:
+            if hasattr(self, attr):
+                json_dict[attr] = getattr(self, attr)
+        return json_dict
+
+    def reload_from_json(self, json):
+        """Reloads from json file"""
+        for key, value in json.items():
+            setattr(self, key, value)
