@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-""" lists all states with a name starting with 'N' (upper N) """
+""" The script that uses parameterized queries to prevent SQL injection"""
 import MySQLdb
 import sys
-
 
 if __name__ == "__main__":
     """
@@ -11,10 +10,11 @@ if __name__ == "__main__":
     Usage: ./0-select_states.py <mysql_username>
     <mysql_password> <database_name>
     """
-    # Get MySQL credentials from command line arguments
+    # Get MySQL credentials and state name from command line arguments
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     database_name = sys.argv[3]
+    state_name = sys.argv[4]
 
     # Connect to MySQL server
     db = MySQLdb.connect(
@@ -22,16 +22,18 @@ if __name__ == "__main__":
         port=3306,
         user=mysql_username,
         passwd=mysql_password,
-        db=database_name
+        db=database_name,
     )
 
     # Create a cursor object
     cursor = db.cursor()
 
-    # Execute the query to retrieve states
-    cursor.execute(
-        "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
-        )
+    """
+    Execute the parameterized query to retrieve states
+    matching the provided name
+    """
+    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+    cursor.execute(query, (state_name,))
 
     # Fetch all the rows
     rows = cursor.fetchall()
