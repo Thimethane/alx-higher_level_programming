@@ -7,9 +7,11 @@ and displays the body of the response in a specific format.
 import requests
 
 if __name__ == "__main__":
-    url = "https://alx-intranet.hbtn.io/status"
+    url = 'https://alx-intranet.hbtn.io/status'
+
     response = requests.get(url)
+    content = response.text
 
     print("Body response:")
-    print("    - type:", type(response.text))
-    print("    - content:", response.text)
+    print(f"\t- type: {type(content)}")
+    print(f"\t- content: {content}")

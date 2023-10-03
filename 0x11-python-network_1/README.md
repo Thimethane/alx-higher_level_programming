@@ -113,3 +113,15 @@ Usage:
 bash
 Copy code
 ./10-my_github.py <github_username> <personal_access_token>
+
+Additional Task: Fetching Commits from a GitHub Repository
+File: 100-github_commits.py
+
+This script fetches the 10 most recent commits from a specified GitHub repository by a user using the GitHub API. It prints the commit SHA and the author's name for each commit.
+
+Usage:
+
+bash
+Copy code
+./100-github_commits.py <repository_name> <owner_name>
+Replace <repository_name> with the desired GitHub repository name and <owner_name> with the owner's GitHub username. The script will list the 10 most recent commits in the specified repository by the provided user.
